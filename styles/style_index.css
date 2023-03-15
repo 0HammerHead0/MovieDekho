@@ -1,0 +1,180 @@
+body{
+	margin: 0;
+	background: #282d34;
+	color: white;
+	font-family: sans-serif;;
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+}
+.slider{
+    width: 100%;
+    margin-top:0px;
+}
+.slider input{display: none;}
+.testimonials{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	min-height: 500px;
+    max-height:500;
+	perspective: 600px;
+	overflow: hidden;
+    border-radius:10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.testimonials .item{
+    margin-top: 5%;
+	width: 500px;
+	border-radius: 30px;
+	background-color: #21262d;
+	position: absolute;
+	top: 0;
+	text-align: center;
+	transition: transform 0.52s;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	user-select: none;
+	cursor: pointer;
+}
+.testimonials .item img{
+    border-radius: 30px;
+}
+.dots{display: flex; justify-content: center;align-items: center;}
+.dots label{
+	height: 5px;
+	width: 5px;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: #413B52;
+	margin: 10px;
+	transition-duration: 0.52s;
+}
+#t-1:checked ~ .dots label[for="t-1"],
+#t-2:checked ~ .dots label[for="t-2"],
+#t-3:checked ~ .dots label[for="t-3"],
+#t-4:checked ~ .dots label[for="t-4"],
+#t-5:checked ~ .dots label[for="t-5"]{
+	transform: scale(2);
+	background-color: #fff;
+	box-shadow: 0px 0px 15px #00000024;
+}
+
+#t-1:checked ~ .dots label[for="t-2"],
+#t-2:checked ~ .dots label[for="t-1"],
+#t-2:checked ~ .dots label[for="t-3"],
+#t-3:checked ~ .dots label[for="t-2"],
+#t-3:checked ~ .dots label[for="t-4"],
+#t-4:checked ~ .dots label[for="t-3"],
+#t-4:checked ~ .dots label[for="t-5"],
+#t-5:checked ~ .dots label[for="t-4"]{
+	transform: scale(1.5);
+}
+
+#t-1:checked ~ .testimonials label[for="t-3"],
+#t-2:checked ~ .testimonials label[for="t-4"],
+#t-3:checked ~ .testimonials label[for="t-5"],
+#t-4:checked ~ .testimonials label[for="t-1"],
+#t-5:checked ~ .testimonials label[for="t-2"]{
+	transform: translate3d(600px, 0, -180px) rotateY(-25deg);
+	z-index: 2;
+}
+
+#t-1:checked ~ .testimonials label[for="t-2"],
+#t-2:checked ~ .testimonials label[for="t-3"],
+#t-3:checked ~ .testimonials label[for="t-4"],
+#t-4:checked ~ .testimonials label[for="t-5"],
+#t-5:checked ~ .testimonials label[for="t-1"]{
+	transform: translate3d(300px, 0, -90px) rotateY(-15deg);
+	z-index: 3;
+}
+
+#t-2:checked ~ .testimonials label[for="t-1"],
+#t-3:checked ~ .testimonials label[for="t-2"],
+#t-4:checked ~ .testimonials label[for="t-3"],
+#t-5:checked ~ .testimonials label[for="t-4"],
+#t-1:checked ~ .testimonials label[for="t-5"]{
+	transform: translate3d(-300px, 0, -90px) rotateY(15deg);
+	z-index: 3;
+}
+
+#t-3:checked ~ .testimonials label[for="t-1"],
+#t-4:checked ~ .testimonials label[for="t-2"],
+#t-5:checked ~ .testimonials label[for="t-3"],
+#t-2:checked ~ .testimonials label[for="t-5"],
+#t-1:checked ~ .testimonials label[for="t-4"]{
+	transform: translate3d(-600px, 0, -180px) rotateY(25deg);
+	
+}
+
+#t-1:checked ~ .testimonials label[for="t-1"],
+#t-2:checked ~ .testimonials label[for="t-2"],
+#t-3:checked ~ .testimonials label[for="t-3"],
+#t-4:checked ~ .testimonials label[for="t-4"],
+#t-5:checked ~ .testimonials label[for="t-4"],
+#t-5:checked ~ .testimonials label[for="t-5"]{
+	
+	z-index: 4;
+}
+
+body{
+    background: -webkit-gradient(linear, left top, left bottom, from(#0E8388), to(#2C3333)) fixed;
+}
+/* #carousel-xd{
+    padding:7% 7%;
+   margin: auto;
+    width:80%;
+    height: 80%;
+    border-radius: 50%;
+}
+.carousel-item{
+    margin:0px;
+    size: 100px;
+} */
+/* .img_bor{
+    border-radius: 30px;
+    max-width:90%;
+    max-height: 90%;
+    margin:auto;
+    box-shadow: 10px 0px 15px rgb(0, 0, 0);
+} */
+.card_row{
+    text-align: center;
+    margin:auto;
+}
+.card_row{
+    color:#2C3333
+}
+.card-title #card-title1{
+    color:rgb(9, 26, 19);
+    margin-left:100px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+}
+.row .col-lg-4 .card
+{
+    margin-left:100px;
+    margin-bottom:100px;
+    margin-top:30px;
+    text-align:center;
+    justify-content:center;
+    border-radius:23px;
+    border-color:rgb(14, 44, 42);
+    box-shadow: 0px 0px 10px rgb(12, 37, 29);
+}
+.card img{
+    border-top-left-radius:20px;
+    border-top-right-radius: 20px;
+}
+.card-body{
+    background-color: rgb(14, 44, 42);
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius: 20px;
+}
+.card-body h5{
+    color:lightgray;
+}
+.card-body p{
+    color:lightgray;
+}
