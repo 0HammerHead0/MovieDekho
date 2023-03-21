@@ -48,11 +48,8 @@ app.static_folder='templates'
 # this will print details of all the articles by the username user_name
 @app.route("/articles/<user_name>", methods=["GET","POST"])
 def articles_by_author(user_name):
-    articles=Article.query.filter(Article.authors.any(username=user_name))
-    return render_template("articles_by_author.html",articles=articles)
+    return render_template("articles_by_author.html")
 
-
-    
 if __name__=='__main__':
     # Run the flask app
-    app.run()(debug=True)
+    app.run()(debug=True,host='0.0.0.0')
