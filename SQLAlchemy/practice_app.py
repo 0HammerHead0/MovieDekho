@@ -40,15 +40,14 @@ app.static_folder='templates'
 @app.route("/", methods = ["GET","POST"])
 #neeche agar html me {{ articles }} hota...to jinja kaam karta aur articles ki 
 #list print hoti
-# def articles():
-#     articles = Article.query.all()
-#     return render_template("user_login.html",articles=articles)
+def articles():
+    return render_template("user_login.html")
 
 #jab /lagake url extend karoge to aisa ayega....user_name as a parameter jayega
 # this will print details of all the articles by the username user_name
-@app.route("/articles/<user_name>", methods=["GET","POST"])
-def articles_by_author(user_name):
-    return render_template("articles_by_author.html")
+# @app.route("/articles/<user_name>", methods=["GET","POST"])
+# def articles_by_author(user_name):
+#     return render_template("articles_by_author.html")
 
 if __name__=='__main__':
     # Run the flask app
