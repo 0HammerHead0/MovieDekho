@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="{{ url_for('static', filename='trans.css') }}" rel="stylesheet">
+    <!-- <link href="/sqlalchemy/static/styles_login.css" rel="stylesheet" > -->
+    <title>Movie Dekho!</title>
+</head>
+<body>
+    <div class="full-body">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+              <a class="navbar-brand">Movie Dekho</a>
+            </div>
+        </nav>
+    </div>
+    <form method="POST">
+    <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">{{ title }}</h5>
+          <p class="card-text">{{ body }}</p>
+          <button type="submit" class="btn d-grid gap-2 col-6 bg-dark text-light idp" >Go Back</button>
+        </div>
+      </div>
+    </form>
+</body>
+</html>

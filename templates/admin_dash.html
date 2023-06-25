@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin_dash.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Movie Dekho!</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Admin's Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 " style="font-size:large;">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('summary')}}">Summary</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('admin_login') }}">Logout</a>
+                </li>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    <div class="venues" style="margin-top:5%">
+      {% if venues %}
+      {% for venue in venues %}
+      {% if not loop.last %}
+      <div class="venue-body" style="margin-bottom:0%">
+        <div style="display: flex; flex-direction: row;">
+          <h1 style="margin-left:2%; margin-top:10px; color: rgb(178, 214, 209); flex:1;">
+          {{venue.name}}
+          </h1>
+          <a href="{{ url_for('create_show', venue_id=venue.ID) }}" style="flex:1">
+            <img src="{{ url_for('static',filename='images/plus.png')}} "class="button" style="margin-top: 8%; margin-left:30%; background-color: tranparent;" >
+          </a>
+          <a href="{{url_for('edit_venue',venue_id=venue.ID)}}" class="btn btn-primary button"style="flex:1; margin:1%;margin-top: 1.5%;max-width:70%; background-color:#125662; border-color: transparent;">Edit</a>
+          <a href="{{url_for('del_venue',venue_id=venue.ID)}}" class="btn btn-primary button"style="flex:1;margin:1%;margin-top:1.5%;max-width:70%; background-color:#125662; border-color: transparent;">Delete</a>
+        </div>
+        <p style="color:rgb(159, 190, 186); margin-left:2%; font-size:large ">Venue ID: {{venue.ID}} &emsp;{%if venue.place %} Place: {{venue.place}} {% endif %}</p>
+        <div class="movies">
+          <!-- each movie -->
+          {% if venue.shows %}
+          {% for show in venue.shows %}
+          <div class="card" style="border-radius:22px" >
+            <div class="card-body">
+              {% if show.name %}
+              <h5 class="card-title">{{show.name}}</h5>
+              {% else %}
+              <h5 class="card-title" style="opacity:0.6">No show name</h5>
+              {% endif %}
+              <p class="card-text" style="line-height:1.5;">
+              Show ID: {{show.ID}} <br>
+              Rating: {{show.rating}} <br>
+              Tags: 
+                {% if show.tags %}
+                {{show.tags}}
+                {% else %}
+                none
+                {% endif %}<br>
+              Price: {{show.price}} <br>
+              Time: {{show.start_time}}-{{show.end_time}} <br>
+            </p>
+            <div style="display:flex; flex-wrap: wrap;">
+              <a href="{{url_for('edit_show',show_id=show.ID,venue_id=venue.ID)}}" class="btn btn-primary button" style=" background-color:#176a78; border-color: transparent; flex:1 ;margin:3px;">Edit</a>
+              <a href="{{url_for('del_show',show_id=show.ID)}}" class="btn btn-primary button" style=" background-color:#176a78; border-color: transparent; flex:1; margin:3px">Delete</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p style="color:rgb(159, 190, 186); margin-left:3%; font-size: large;">No shows yet</p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% else %}
+      <div class="venue-body" style="margin-bottom:4%">
+        <div style="display: flex; flex-direction: row;">
+          {% if venue.name %}
+          <h1 style="margin-left:2%; margin-top:10px; color: rgb(178, 214, 209); flex:1;">
+          {{venue.name}}
+          </h1>
+          {% else %}
+          <h1 style="margin-left:2%; margin-top:10px; color: rgb(178, 214, 209); flex:1;opacity:0.7">
+            No Venue name
+          </h1>
+          {% endif %}
+          <a href="{{ url_for('create_show', venue_id=venue.ID) }}" style="flex:1">
+            <img src="{{ url_for('static',filename='images/plus.png')}} "class="button" style="margin-top: 8%; margin-left:30%; background-color: tranparent;" >
+          </a>
+          <a href="{{url_for('edit_venue',venue_id=venue.ID)}}" class="btn btn-primary button"style="flex:1; margin:1%;margin-top: 1.5%;max-width:70%; background-color:#125662; border-color: transparent;">Edit</a>
+          <a href="{{url_for('del_venue',venue_id=venue.ID)}}" class="btn btn-primary button"style="flex:1;margin:1%;margin-top:1.5%;max-width:70%; background-color:#125662; border-color: transparent;">Delete</a>
+        </div>
+        <p style="color:rgb(159, 190, 186); margin-left:2%; font-size:large ">Venue ID: {{venue.ID}} &emsp;{%if venue.place %} Place: {{venue.place}} {% endif %}</p>
+        <div class="movies">
+          {% if venue.shows %}
+          {% for show in venue.shows %}
+          <div class="card" style="border-radius:22px" >
+            <div class="card-body">
+              {% if show.name %}
+              <h5 class="card-title">{{show.name}}</h5>
+              {% else %}
+              <h5 class="card-title" style="opacity:0.6">No show name</h5>
+              {% endif %}
+              <p class="card-text" style="line-height:1.5;">
+                Show ID: {{show.ID}} <br>
+                Rating: {{show.rating}} <br>
+                Tags: 
+                {% if show.tags %}
+                {{show.tags}}
+                {% else %}
+                none
+                {% endif %}<br>
+                Price: {{show.price}} <br>
+                Time: {{show.start_time}}-{{show.end_time}} <br>
+              </p>
+              <div style="display:flex; flex-wrap: wrap;">
+                <a href="{{ url_for('edit_show',show_id=show.ID,venue_id=venue.ID )}}" class="btn btn-primary button" style=" background-color:#176a78; border-color: transparent; flex:1 ;margin:3px;">Edit</a>
+                <a href="{{url_for('del_show',show_id=show.ID)}}" class="btn btn-primary button" style=" background-color:#176a78; border-color: transparent; flex:1; margin:3px">Delete</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          {% else %}
+          <p style="color:rgb(159, 190, 186); margin-left:3%; font-size: large;">No shows yet</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}  
+   
+      {% endfor %}
+      {% else %}
+      <p style="color:rgb(159, 190, 186); margin-left:4%; font-size:x-large;  font-weight: 800;">No Venues yet</p>
+      {% endif %}
+    </div>
+    <footer>
+    <nav class="navbar navbar-dark bg-transparent fixed-bottom">
+        <div class="container-fluid">
+          <a class="navbar-brand">
+            <!-- <button type="button" class="btn btn-primary btn-circle" style="border-radius: 50%;"> -->
+                <a href="{{url_for('create_venue')}}">
+                <img src="{{ url_for('static',filename='images/plus.png')}}" class="button"style="margin:auto; margin-bottom:50%;width:40px" >
+                </a>
+            <!-- </button> -->
+
+          </a>
+        </div>
+    </nav>
+  </footer>
+</body>
+</html>

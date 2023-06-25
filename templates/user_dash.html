@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="{{ url_for('static', filename='style_index.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script>
+      var currentSlide = 2;
+      var slideInterval = setInterval(nextSlide, 2750); // Change slide every 5 seconds
+    
+      function nextSlide() {
+        currentSlide++;
+        if (currentSlide > 5) {
+          currentSlide = 1;
+        }
+        document.getElementById("t-" + currentSlide).checked = true;
+      }
+    </script>
+    <title>Movie Dekho!</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" > {{user.name}}'s Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 " style="font-size:large;">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('user_all_bookings', username=user.username )}}">Bookings</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('home') }}" >Logout</a>
+                </li>
+                <hr>
+                <li style="opacity:0.5;font-weight: 500;">
+                  Search
+                </li>
+                </ul>
+              <form method='POST' style="margin-top:25px"role="search">
+                <select name="location" class="me-2" style="border-radius:8px; height: 40px; width:100%;margin-bottom:25px;">
+                  <option value="0" selected>Select location</option>
+                  {% if venues %}
+                    {% for venue in venues %}
+                      <option value="{{ venue.ID }}">{{venue.place}}</option>
+                    {% endfor %}
+                  {% endif %}
+                </select>
+                <input name="search" class="form-control me-2" type="search" placeholder="tag/name" aria-label="Search"><br>
+                <input name="rating" class="form-control me-2" type="search" placeholder="any rating > ? " aria-label="Search"><br>
+                <p style="opacity:0.7;font-weight: 500;">Available time:</p>
+                <div style="display:flex;">
+                <input name="start_time" class="form-control" type="time" style="flex:1;margin:2px"> _ 
+                <input name="end_time" class="form-control" type="time" style="flex:1;margin:2px;">
+                </div><br>
+                <button class="btn btn-outline-success search-button" type="submit" >Search</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+    </nav>
+    <h4 style="margin-left:2%; margin-top:7%; color: rgb(255, 255, 255); font-family: 'Poppins', sans-serif;font-weight: bolder;font-size: xx-large;text-shadow: 2px 2px 5px rgb(9, 29, 22); ">
+      Top 5 Rated Movies by our Users -
+    </h4>
+    <!-- this is for the carousal -->
+    <div class="slider container-fluid" id="revel" autoplay>
+        <input type="radio" name="testimonial" id="t-1">
+        <input type="radio" name="testimonial" id="t-2">
+        <input type="radio" name="testimonial" id="t-3" checked>
+        <input type="radio" name="testimonial" id="t-4">
+        <input type="radio" name="testimonial" id="t-5">
+        <div class="testimonials">
+            <label class="item" for="t-1">
+                <img src={{img0}} class="d-block w-100" alt="...">
+            </label>
+            <label class="item" for="t-2">
+                <img src={{img1}} class="d-block w-100" alt="...">
+            </label>
+            <label class="item" for="t-3">
+                <img src={{img2}} class="d-block w-100" alt="...">
+            </label>
+            <label class="item" for="t-4">
+                <img src={{img3}} class="d-block w-100" alt="...">
+            </label>
+            <label class="item" for="t-5">
+                <img src={{img4}} class="d-block w-100" alt="...">
+            </label>
+            
+        </div>
+        <div class="dots">
+            <label for="t-1"></label>
+            <label for="t-2"></label>
+            <label for="t-3"></label>
+            <label for="t-4"></label>
+            <label for="t-5"></label>
+        </div>
+    </div>
+    
+    <div class="venues">
+      <h4 style="margin-left:2%;margin-top:1%;margin-bottom:0;color: rgb(255, 255, 255); font-family: 'Poppins', sans-serif;font-weight: bolder;font-size: xx-large;text-shadow: 2px 2px 5px rgb(9, 29, 22); ">
+        Available Shows -
+      </h4>
+      {% if venues %}
+      {% for venue in venues %}
+      <div class="venue-body">
+        {% if venue.name %}
+        <h1 style="margin-left:2%; margin-top:2%; color: rgb(178, 214, 209);text-shadow: 2px 2px 5px rgb(0, 0, 0)">
+          {{venue.name}}
+        </h1>
+        {% else %}
+        <h1 style="margin-left:2%; margin-top:2%; color: rgb(178, 214, 209);text-shadow: 2px 2px 5px rgb(0, 0, 0);opacity: 0.7;">
+          No Venue name
+        </h1>
+        {% endif %}
+        <div style="display:flex;flex-wrap: wrap;text-shadow: 1px 1px 2px rgb(0, 0, 0)">
+        <h5 style="margin-left:2%; margin-bottom:0;color: rgb(178, 214, 209); flex:1">VenueID: {{venue.ID}}</h5>
+        <h5 style="color:rgb(159, 190, 186); margin-left:2%;flex:1">Location: {{venue.place}}</h5>
+        </div>
+        <div class="movies">
+          {% if venue.shows %}
+          {% for show in venue.shows %}
+            <div class="card">
+              <div class="card-img">
+              <img src="{{show.img}}" class="card-img-top" alt="...">
+              </div>
+              <div class="card-body">
+                {% if show.name %}
+                <h5 class="card-title">{{show.name}}</h5>
+                {% else %}
+                <h5 class="card-title" style="opacity:0.7">No Show name</h5>
+                {% endif %}
+                <div style="display: flex; flex-wrap:wrap;"><p class="card-text" style="flex:1">Date: {{show.date}}</p><p class="card-text" style="flex:1">Time: {{show.start_time.strftime("%H:%M")}}-{{show.end_time.strftime("%H:%M")}}</p></div>
+                <div style="display: flex; flex-wrap:wrap;">
+                  {% if show.user_rating %}
+                 <p class="card-text" style="flex:1">UserRating: {{show.user_rating}}</p>
+                 {% else %}
+                 <p class="card-text" style="flex:1;opacity: 0.7;">No users rated</p>
+                 {% endif %}
+                 {% if show.rating %}
+                  <p class="card-text" style="flex:1">AdminRating: {{show.rating}}</p>
+                  {% else %}
+                  <p class="card-text" style="flex:1 ;opacity:0.7">Rated 0 by Admin</p>
+                  {% endif %}
+                </div>
+                {% if show.tot_cap>0 %}
+                {% if show.rem_cap>0 %}
+                <a href="{{url_for('user_new_booking',username=user.username,show_id=show.ID)}}" class="btn btn-primary boton" style="margin-top:3%;font-size:large">Book</a>
+                {% else %}
+                <button type="button" class="btn btn-lg btn-primary" style="background-color: #1a3f36; border-color: transparent;margin-top:3%;font-size:large" disabled>Housefull</button>
+                {% endif %}
+                {% else %}
+                <button type="button" class="btn btn-lg btn-primary" style="background-color: #1a3f36; border-color: transparent;margin-top:3%;font-size:large" disabled>No Seats</button>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          {% else %}
+          <p style="color:rgb(159, 190, 186); margin-left:3%; font-size: large;">No shows yet</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:rgb(159, 190, 186); margin-left:4%; font-size:x-large;  font-weight: 800;">No Venues yet</p>
+      {% endif %}
+      </div>
+    </body>
+</html>

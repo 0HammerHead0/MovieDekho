@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="{{ url_for('static', filename='new_booking.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Movie Dekho!</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top" style="display:inline-block;">
+        <div class="container-fluid">
+          <a class="navbar-brand"  href="{{url_for('user_dash', username=user.username )}}">{{ user.name }}'s Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 " style="font-size:large;">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('user_dash', username=user.username )}}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('home') }}">Logout</a>
+                </li>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <div class="movies">
+      {% for user_rate,show in zip(user_rates, shows) %}
+      {% if loop.first %}
+      <div class="card"  style="margin-top:7% ; margin-bottom:3%;">
+        <div class="card-body"style="text-shadow: 2px 2px 3px rgb(0, 0, 0);">
+            <h5 class="card-title"><strong>Venue Name:</strong> {{show.venue.name}} -> <srtong>Show Name:</strong> {{show.name}}</h5>
+            <div class="card-text" style="display:flex; flex-wrap: wrap;">
+              <p style="flex:1">Time:- <strong>{{show.start_time}}-{{show.end_time}}</strong></p>
+              <p style="flex:1">Tags:- <strong>{{show.tags}}</strong></p>
+              <p style="flex:1">Remaining Seats:- <strong>{{show.rem_cap}}</strong></p>
+              <p style="flex:1">Seats Booked:- <strong>{{user_rate.seats}}</strong></p>
+              </div>
+            <a href="{{url_for('rating',user_id=user.ID,show_id=show.ID)}}" class="btn btn-primary button"  style="margin-bottom:0.6% ;width:10%">Rate</a>
+            <p class="card-text">{% if show.rating %} Admin rating:- <strong> {{show.rating}} </strong>{% endif %}<br>
+              {% if show.user_rating %}All User Rating:- <strong> {{show.user_rating}} </strong><br>{% endif %}
+              {% if user_rate %}Your Current Rating:- <strong> {{user_rate.rating}} </strong>{% endif %}
+            </p>
+        </div>
+      </div>
+      {% elif loop.last %}
+      <div class="card"  style="margin-top:0% ; margin-bottom:7%;">
+        <div class="card-body"style="text-shadow: 2px 2px 3px rgb(0, 0, 0);">
+          <h5 class="card-title"><strong>Venue Name:</strong> {{show.venue.name}} -> <srtong>Show Name:</strong> {{show.name}}</h5>
+          <div class="card-text" style="display:flex; flex-wrap: wrap;">
+            <p style="flex:1">Time:- <strong>{{show.start_time}}-{{show.end_time}}</strong></p>
+            <p style="flex:1">Tags:- <strong>{{show.tags}}</strong></p>
+            <p style="flex:1">Remaining Seats:- <strong>{{show.rem_cap}}</strong></p>
+            <p style="flex:1">Seats Booked:- <strong>{{user_rate.seats}}</strong></p>
+            </div>
+          <a href="{{url_for('rating',user_id=user.ID,show_id=show.ID)}}" class="btn btn-primary button"  style="margin-bottom:0.6% ;width:10%">Rate</a>
+          <p class="card-text">{% if show.rating %} Admin rating:- <strong> {{show.rating}} </strong>{% endif %}<br>
+            {% if show.user_rating %}All User Rating:- <strong> {{show.user_rating}} </strong><br>{% endif %}
+            {% if user_rate %}Your Current Rating:- <strong> {{user_rate.rating}} </strong>{% endif %}
+          </p>
+      </div>
+      </div>
+      {% else %}
+      <div class="card"  style="margin-top:0% ;margin-bottom:3%;">
+        <div class="card-body"style="text-shadow: 2px 2px 3px rgb(0, 0, 0);">
+          <h5 class="card-title"><strong>Venue Name:</strong> {{show.venue.name}} -> <srtong>Show Name:</strong> {{show.name}}</h5>
+          <div class="card-text" style="display:flex; flex-wrap: wrap;">
+            <p style="flex:1">Time:- <strong>{{show.start_time}}-{{show.end_time}}</strong></p>
+            <p style="flex:1">Tags:- <strong>{{show.tags}}</strong></p>
+            <p style="flex:1">Remaining Seats:- <strong>{{show.rem_cap}}</strong></p>
+            <p style="flex:1">Seats Booked:- <strong>{{user_rate.seats}}</strong></p>
+            </div>
+          <a href="{{url_for('rating',user_id=user.ID,show_id=show.ID)}}" class="btn btn-primary button"  style="margin-bottom:0.6% ;width:10%">Rate</a>
+          <p class="card-text">{% if show.rating %} Admin rating:- <strong> {{show.rating}} </strong>{% endif %}<br>
+            {% if show.user_rating %}All User Rating:- <strong> {{show.user_rating}} </strong><br>{% endif %}
+            {% if user_rate %}Your Current Rating:- <strong> {{user_rate.rating}} </strong>{% endif %}
+          </p>
+      </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    </body>
+</html>

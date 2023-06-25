@@ -1,0 +1,30 @@
+body{
+    background: -webkit-gradient(linear, left top, left bottom, from(#0E8388), to(#2C3333)) fixed;
+    
+}
+.top-bar{
+    display: block;
+}
+.head{
+    margin-top:6%;
+    margin-bottom: 5%;
+    padding: 0.01%;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+}
+.title{
+    margin-left:5%;
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+    float :left;
+}
+.body_{
+    display:block;
+
+}
+button{
+    opacity: 1;
+}
+button:hover{
+    opacity: 0.8;
+}

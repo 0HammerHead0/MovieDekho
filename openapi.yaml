@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: Ticket Booking
+  version: 1.0.0
+  description: >-
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then
+    click
+servers:
+  - url: http://127.0.0.1:8080/
+paths:
+  /api/user/{username}:
+    description: end point to read , delte and add user with username
+    get:
+      description: Operation to get a user details
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+            example: ali
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: user object
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 201
+                  username:
+                    type: string
+                    example: all
+                  name:
+                    type: string
+                    example: all
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Resource not found
+        '500':
+          description: Internal server Error
+  /api/user:
+    summary: Endpoint to add user
+    post:
+      description: OPeration to create a uesr
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: user object
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: all
+                name:
+                  type: string
+                  example: all
+                password:
+                  type: string
+                  example: all
+      responses:
+        '202':
+          description: Succesfully Created
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '409':
+          description: username already exists
+        '500':
+          description: internal server eror
+  /api/venue:
+    summary: Endpoint to add venue
+    post:
+      description: OPeration to create a venue
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: venue object
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: all
+                place:
+                  type: string
+                  example: all
+                capacity:
+                  type: integer
+                  example: all
+      responses:
+        '202':
+          description: Succesfully Created
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '409':
+          description: venue already exists
+        '500':
+          description: internal server eror
+  /api/venue/{ID}:
+    description: end point to read , delete , edit  and create venue with venue ID
+    get:
+      description: Operation to get a venue details
+      parameters:
+        - in: path
+          name: ID
+          required: true
+          schema:
+            type: string
+            example: ali
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: user object
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 201
+                  name:
+                    type: string
+                    example: all
+                  capacity:
+                    type: integer
+                    example: all
+                  place:
+                    type: string
+                    example: all
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Resource not found
+        '500':
+          description: Internal server Error
